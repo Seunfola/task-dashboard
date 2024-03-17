@@ -11,7 +11,7 @@ const Navbar = ({ authUser }) => {
     };
 
     return (
-        <div className={`contain ${menuOpen ? open : ''}`}>
+        <div className={`contain ${menuOpen ? "open" : ''}`}>
             
             <Link href="/" className='logo'>
                 TASK <br /> DASHBOARD

@@ -614,56 +614,84 @@ input[type='date']:focus,
 }
 
 @media only screen and (max-width: 896px) and (min-width: 360px) {
- .contain{
-    position:relative;
-    margin-bottom: 10px;
-    width:100%;
- }
-  .menuIcon {
-    display: block;
-   flex-direction: column;
-    align-items: flex-start;
-    
-  }
-.link{
-  display:block;
-}
-  .links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 30px;
-    right: -110px;
-    width: 100%;
-    
-  }
-  .open{
-    height: 250px;
-    top: -10px;
-    right: 10px;
-  }
+    .contain {
+        position: relative;
+        margin-bottom: 10px;
+    }
 
-  .open .links {
-    display: block;
-  }
+    .menuIcon {
+        display: block;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-  .main-content,
-  .task-form-container,
-  .task-list-container {
-    margin: 10px 0;
-    width: max-width;
-  }
+    .link {
+        display: block;
+        right: ;
+    }
 
-.footer-container{
-  width:100%;
-}
+    .links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 200px;
+        overflow-x: hidden;
+    }
 
-  .footer-text {
-    font-size: 12px;
-  }
+    .open {
+        height: 200px;
+        top: 0px;
+        right: 0px;
+    }
 
-  .footer-links {
-    font-size: 14px;
-  }
+    .open .links {
+        display: block;
+    }
 
+    .main-content,
+    .task-form-container,
+    .task-list-container {
+        margin: 10px 0;
+        width: max-width;
+    }
+
+    .footer-container {
+        width: 100%;
+    }
+
+    .footer-text {
+        font-size: 12px;
+    }
+
+    .footer-links {
+        font-size: 14px;
+    }
+
+    .filter-container {
+        margin-bottom: 10px;
+        width: 50%; /* Adjust the width of the filter container */
+    }
+
+    .filter-label {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .filter-select {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .search-container {
+        margin-bottom: 10px;
+        width: 50%; /* Adjust the width of the search container */
+    }
+
+    .search-input {
+        padding: 8px;
+        font-size: 14px;
+        width: 100%; /* Make the search input fill the container */
+    }
 }
