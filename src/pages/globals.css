@@ -319,6 +319,11 @@ input[type='date']:focus,
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  width: 100%;
+}
+
+.footer-content{
+  width:100%;
 }
 
 .footer-divider {
@@ -649,10 +654,10 @@ input[type='date']:focus,
     width: max-width;
   }
 
-  .footer-content{
-    width:100%;
-  }
-.
+.footer-container{
+  width:100%;
+}
+
   .footer-text {
     font-size: 12px;
   }
