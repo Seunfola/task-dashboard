@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
-import Logout from '../Logout';
-
 
 const Navbar = ({ authUser }) => {
     const [menuOpen, setMenuOpen] = useState(false);
