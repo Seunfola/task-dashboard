@@ -57,18 +57,13 @@ const Navbar = ({ authUser }) => {
                         <div className="navbar-list">
                             {authUser ? (
                                 <>
-                                    <div className="navbar-item">
-                                        <Link href="/Logout" legacyBehavior>
-                                            Logout
-                                        </Link>
-                                        
-                                    </div>
+                                  
                                     <div>
                                         <p>{`Signed In as ${authUser.email}`}</p>
                                     </div>
                                 </>
                             ) : (
-                                <div key="logout" className="navbar-item">
+                                <div className="navbar-item">
                                     <Link href="/signUp">Register</Link>
                                 </div>
                             )}
