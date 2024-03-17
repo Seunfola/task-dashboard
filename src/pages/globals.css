@@ -633,13 +633,12 @@ input[type='date']:focus,
   }
   .open{
     height: 250px;
-    align-items: center;
     top: -10px;
     right: 10px;
   }
 
   .open .links {
-    display: flex;
+    display: block;
   }
 
   .main-content,

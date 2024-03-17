@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
