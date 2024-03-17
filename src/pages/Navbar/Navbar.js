@@ -40,6 +40,10 @@ const Navbar = ({ authUser }) => {
         };
     }, []);
 
+    const handleLogout = () => {
+        // Handle logout logic here
+    };
+
     return (
         <div className="navbar">
             <div className="nav-bar">
@@ -57,9 +61,11 @@ const Navbar = ({ authUser }) => {
                         <div className="navbar-list">
                             {authUser ? (
                                 <>
-                                  
                                     <div>
                                         <p>{`Signed In as ${authUser.email}`}</p>
+                                    </div>
+                                    <div className="navbar-item" onClick={handleLogout}>
+                                        Logout
                                     </div>
                                 </>
                             ) : (
