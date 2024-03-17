@@ -4,7 +4,6 @@ import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
 import { BiAlignJustify } from 'react-icons/bi';
 import OutsideClickHandler from 'react-outside-click-handler';
-import Logout from '../Logout'; // Correctly import the Logout component
 
 const Navbar = ({ authUser }) => {
     const [menuOpened, setMenuOpened] = useState(false);
@@ -61,7 +60,9 @@ const Navbar = ({ authUser }) => {
                                     <div>
                                         <p>{`Signed In as ${authUser.email}`}</p>
                                     </div>
-                                    <Logout /> {/* Render the Logout component */}
+                                    <div className="navbar-item">
+                                        <Link href="/logout">Logout</Link> {/* Link to the logout page */}
+                                    </div>
                                 </>
                             ) : (
                                 <div className="navbar-item">
