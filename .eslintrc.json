@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 {
   "extends": "next/core-web-vitals",
   "rules": {
     "no-console": "off"
   }
 }
+=======
+module.exports = {
+    extends: ['next/core-web-vitals'],
+    rules: {
+        'no-console': 'off', // Disabling the no-console rule
+    }
+};
+>>>>>>> 7456d45c8c13bdee617514e02fa7ae614ac929eb
