@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
-import { BiAlignJustify } from 'react-icons/bi';
-import OutsideClickHandler from 'react-outside-click-handler';
+
 
 const Navbar = ({ authUser }) => {
     const [menuOpen, setMenuOpen] = useState(false);

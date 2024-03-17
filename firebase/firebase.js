@@ -1,5 +1,9 @@
 import { initializeApp, getApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged, TwitterAuthProvider,
+ GoogleAuthProvider
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCDg7IdSUj-iFbZM8RLfW5Uqu8s46MZF1o",
@@ -11,7 +15,10 @@ const firebaseConfig = {
   measurementId: "G-J1F3RF3SYT"
 };
 
-  const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
+
+export { auth, googleProvider, onAuthStateChanged, twitterProvider };

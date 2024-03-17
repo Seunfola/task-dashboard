@@ -612,6 +612,7 @@ input[type='date']:focus,
  .contain{
     position:relative;
     margin-bottom: 10px;
+    width:100%;
  }
   .menuIcon {
     display: block;
@@ -648,6 +649,10 @@ input[type='date']:focus,
     width: max-width;
   }
 
+  .footer-content{
+    width:100%;
+  }
+.
   .footer-text {
     font-size: 12px;
   }
