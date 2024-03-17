@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import { signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, googleProvider, twitterProvider } from '../../firebase/firebase';
 import { loadUserTasks } from '../store/tasksSlice';
-import { FontAwesomeIcon } from '@fontawesome/react-fontawesome';
-import { faGoogle, faTwitter } from '@fontawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {

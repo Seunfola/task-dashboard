@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
-import Logout from '../Logout';
-import { auth } from '../../../firebase/firebase';
 import { BiAlignJustify } from 'react-icons/bi';
 import OutsideClickHandler from 'react-outside-click-handler';
 
@@ -14,6 +12,7 @@ const Navbar = ({ authUser }) => {
     useEffect(() => {
         const handleResize = () => {
             const clientWidth = document.documentElement.clientWidth;
+            // Adjust menuOpened based on screen width
             setMenuOpened(clientWidth > 780);
         };
 
@@ -26,6 +25,7 @@ const Navbar = ({ authUser }) => {
         };
     }, []);
 
+    // Close menu when clicking outside
     const handleClickOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target)) {
             setMenuOpened(false);
@@ -54,7 +54,7 @@ const Navbar = ({ authUser }) => {
                         <div className="search-container">
                             <Search />
                         </div>
-                        <div className="navbar-list ">
+                        <div className="navbar-list">
                             {authUser ? (
                                 <>
                                     <div key="logout" className="navbar-item">
@@ -72,6 +72,7 @@ const Navbar = ({ authUser }) => {
                         </div>
                     </div>
                 </OutsideClickHandler>
+                {/* Render menu icon */}
                 <div className='menu-icon' onClick={() => setMenuOpened((prev) => !prev)}>
                     <BiAlignJustify size={35} />
                 </div>
