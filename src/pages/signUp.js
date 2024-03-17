@@ -8,6 +8,8 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -83,6 +85,9 @@ const Signup = () => {
   return (
     <div>
       <div className="signup-container">
+        <div className="logo">
+          <FontAwesomeIcon icon={faUser} className="logo-icon" />
+        </div>
         <div className="signup-title">Sign Up</div>
         <div className="form-group">
           <label className="signup-label">Email:</label>

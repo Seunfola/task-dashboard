@@ -55,8 +55,6 @@ header {
   color: #1A1A2E;
 }
 
-
-
 .login-link,
 .logout-button {
   text-decoration: none;
@@ -415,7 +413,7 @@ input[type='date']:focus,
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .login-button {
-  background-color: green;
+  background-color: rgb(4, 4, 4);
   color: white;
   padding: 12px;
   margin-bottom: 10px;
@@ -510,7 +508,7 @@ input[type='date']:focus,
   gap: 1rem;
 }
 .signup-button {
-  background-color: green;
+  background-color: #007bff;
   color: white;
   padding: 12px;
   margin-bottom: 10px;
@@ -559,10 +557,10 @@ input[type='date']:focus,
 .signup-login-link {
   margin-top: 30px;
   text-align: center;
+  text-decoration:none;
 }
 
-
-.navbar {
+.contain {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -572,84 +570,76 @@ input[type='date']:focus,
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-.nav-bar header {
+.logo {
   font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: 0.05rem;
   color: #e94560;
 }
-
 .filter-container,
-.search-container,
-.navbar-list {
+.search-container
+ {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.navbar-item {
-  color: #e5e5e5;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.navbar-item:hover {
-  color: #e94560;
-  transform: translateY(-2px);
-  text-decoration:none;
-}
-
-.h-menu {
-  gap: 2rem;
-  display: flex;
-}
-
-.h-menu > *:hover {
+.menuIcon {
+  display: none;
+  flex-direction: column;
   cursor: pointer;
 }
 
-.menu-icon {
-  display: none;
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #c62603;
+  margin: 4px 0;
 }
-@media (max-width: 768px) {
-.menu-icon {
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 896px) and (min-width: 360px) {
+ .contain{
+    position:relative;
+    margin-bottom: 10px;
+ }
+  .menuIcon {
     display: block;
-    cursor: pointer; /* Ensure it's clickable */
+   flex-direction: column;
+    align-items: flex-start;
+    
   }
-
-  .h-menu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    background: #1a1a2e;
-    height: 100vh;
-    width: 50%;
+.link{
+  display:block;
+}
+  .links {
+    display: none;
     flex-direction: column;
-    padding: 2rem;
-    gap: 1rem;
-    transition: right 0.3s ease;
-    z-index: 1000; /* Ensure it's above other content */
+    position: absolute;
+    top: 30px;
+    right: -110px;
+    width: 100%;
+    
   }
-
-  .navbar-item {
-    display: block; 
-  }
-
-  .nav-bar {
-    display: flex;
-    justify-content: space-between;
+  .open{
+    height: 250px;
     align-items: center;
+    top: -10px;
+    right: 10px;
   }
 
-  .filter-container,
-  .search-container,
-  .navbar-list {
-    display: flex; 
+  .open .links {
+    display: flex;
   }
 
   .main-content,
@@ -667,7 +657,4 @@ input[type='date']:focus,
     font-size: 14px;
   }
 
-  header {
-    margin: 0.5rem;
-  }
 }

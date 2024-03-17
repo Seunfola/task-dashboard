@@ -8,7 +8,8 @@ import { auth, googleProvider, twitterProvider } from '../../firebase/firebase';
 import { loadUserTasks } from '../store/tasksSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -97,6 +98,9 @@ const signInWithTwitter = async () => {
 
   return (
     <div className="login-container">
+      <div className="logo">
+        <FontAwesomeIcon icon={faUser} className="logo-icon" />
+      </div>
       <div className="login-title">Log In</div>
       <div className="form-group">
         <label className="login-label">Email:</label>

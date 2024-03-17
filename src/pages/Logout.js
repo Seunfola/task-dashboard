@@ -1,8 +1,10 @@
 import React from 'react';
 import { auth } from '../../firebase/firebase';
 import { signOut } from 'firebase/auth';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2'; // Import SweetAlert
+import 'sweetalert2/dist/sweetalert2.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Logout = () => {
   const handleSignOut = async () => {
@@ -11,13 +13,20 @@ const Logout = () => {
       console.log('Logged out');
     } catch (error) {
       console.error('Error signing out:', error.message);
-      toast.error('Error signing out. Please try again.');
+      // Display error message using SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error signing out. Please try again.',
+      });
     }
   };
 
   return (
     <div className="logout-container">
-      <ToastContainer />
+      <div className="logo">
+        <FontAwesomeIcon icon={faUser} className="logo-icon" />
+      </div>
       <button className="logout-button" onClick={handleSignOut}>
         Log Out
       </button>
