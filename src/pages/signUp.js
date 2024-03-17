@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../../firebase/firebase';
 import Link from 'next/link';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -15,17 +14,29 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
   const [verificationComplete, setVerificationComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSignUp = async () => {
     try {
+      setIsLoading(true); // Start loading
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCred.user;
       await sendEmailVerification(user);
       console.log('success');
-      toast.success('Account created successfully. Please check your email for verification.');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Account created successfully. Please check your email for verification.',
+      });
     } catch (error) {
-      toast.error(`Error: ${error.message}`);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `Error: ${error.message}`,
+      });
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -39,7 +50,11 @@ const Signup = () => {
         if (emailVerified) {
           setVerificationComplete(true);
           // Display success notification
-          toast.success('Email verification successful!');
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Email verification successful!',
+          });
         }
       } else {
         setUser(null);
@@ -54,7 +69,11 @@ const Signup = () => {
   useEffect(() => {
     // Redirect to login page after email verification
     if (verificationComplete) {
-      toast.success('Redirecting to login...');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Redirecting to login...',
+      });
       setTimeout(() => {
         router.push('/Login');
       }, 2000); // Redirect after 2 seconds
@@ -63,7 +82,6 @@ const Signup = () => {
 
   return (
     <div>
-      <ToastContainer />
       <div className="signup-container">
         <div className="signup-title">Sign Up</div>
         <div className="form-group">
@@ -88,26 +106,20 @@ const Signup = () => {
           />
         </div>
 
-        <button className="signup-button" onClick={handleSignUp}>
-          Sign Up
+        <button className="signup-button" onClick={handleSignUp} disabled={isLoading}>
+          {isLoading ? 'Signing Up...' : 'Sign Up'}
         </button>
 
         <div className="signup-login-link">
-          Already have an account?{' '}
+          Already have an account?
+          </div>
           <div className="login-link">
             <Link href="/Login" legacyBehavior>
               Login
             </Link>
           </div>
-          {user && (
-            <div>
-              <p>{user.email}</p>
-              <p>{user.emailVerified ? 'true' : 'false'}</p>
-            </div>
-          )}
         </div>
       </div>
-    </div>
   );
 };
 

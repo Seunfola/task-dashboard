@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { addTask, editTask, deleteTask } from '../../store/tasksSlice';
-import TaskForm from '../../../components/TaskForm'; // Adjust the import based on your actual file structure
-import TaskList from '../../../components/TaskList'; // Adjust the import based on your actual file structure
-import TaskItem from '../../../components/TaskList/TaskItem'; // Adjust the import based on your actual file structure
+import { addTask, editTask, deleteTask } from '../store/tasksSlice';
+import TaskForm from '../../components/TaskForm'; // Adjust the import based on your actual file structure
+import TaskList from '../../components/TaskList'; // Adjust the import based on your actual file structure
+import TaskItem from '../../components/TaskList/TaskItem'; // Adjust the import based on your actual file structure
 
-const Dashboard = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [initialLoad, setInitialLoad] = useState(true);
@@ -70,4 +70,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;

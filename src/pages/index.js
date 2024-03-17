@@ -1,10 +1,10 @@
 import React from 'react'
-import Dashboard from './Dashboard/page'
+import Dashboard from './Home'
 
 const Homepage = () => {
   return (
     <div className='homepage'>
-      <Dashboard/>
+      <Dashboard />
     </div>
   )
 }

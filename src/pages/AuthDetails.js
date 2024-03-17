@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '@/firebase/firebase';
+import { auth } from '../../firebase/firebase';
 import { onAuthStateChanged } from '../../firebase/firebase';
+import Navbar from '../../src/pages/Navbar/Navbar';
 
 const AuthDetails = () => {
     const [authUser, setAuthUser] = useState(null);
@@ -13,15 +14,23 @@ const AuthDetails = () => {
                 setAuthUser(null)
             }
         });
-        return () =>{
+        return () => {
             listen();
         }
-    }, [])
+    }, []);
+
     return (
         <div>
-{authUser? <p>{'Signed In as $(authUser.email)'}</p>:<p>Signed Out</p>}
+            {authUser ? (
+                <div>
+                    <Navbar authUser={authUser} /> {/* Pass the authUser prop to the Navbar component */}
+                    <p>{`Signed In as ${authUser.email}`}</p>
+                </div>
+            ) : (
+                <p>Signed Out</p>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default AuthDetails
+export default AuthDetails;

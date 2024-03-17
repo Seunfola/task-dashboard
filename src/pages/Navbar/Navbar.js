@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
 import Logout from '../Logout';
+import { auth } from '../../../firebase/firebase';
 import { BiAlignJustify } from 'react-icons/bi';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const Navbar = ({ authUser }) => {
-
     const [menuOpened, setMenuOpened] = useState(false);
-    const [menuStyles, setMenuStyles] = useState({});
+    const menuRef = useRef(null);
 
     useEffect(() => {
         const handleResize = () => {
-            if (typeof window !== 'undefined') {
-                const clientWidth = document.documentElement.clientWidth;
-                setMenuStyles(clientWidth <= 780 ? { right: !menuOpened && "-100%" } : {});
-            }
+            const clientWidth = document.documentElement.clientWidth;
+            setMenuOpened(clientWidth > 780);
         };
 
         handleResize();
@@ -26,7 +24,21 @@ const Navbar = ({ authUser }) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [menuOpened]);
+    }, []);
+
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpened(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="navbar">
@@ -34,36 +46,36 @@ const Navbar = ({ authUser }) => {
                 <header>Task Dashboard</header>
             </div>
             <div className='navbar-envelop'>
-            <OutsideClickHandler onOutsideClick={() => setMenuOpened(false)}>
-                <div className='h-menu' style={menuStyles}>
-                    <div className="filter-container">
-                        <Filter />
-                    </div>
-                    <div className="search-container">
-                        <Search />
-                    </div>
-                    <div className="navbar-list ">
-                        {authUser ? (
-                            <>
+                <OutsideClickHandler onOutsideClick={() => setMenuOpened(false)}>
+                    <div ref={menuRef} className={`h-menu ${menuOpened ? 'open' : ''}`}>
+                        <div className="filter-container">
+                            <Filter />
+                        </div>
+                        <div className="search-container">
+                            <Search />
+                        </div>
+                        <div className="navbar-list ">
+                            {authUser ? (
+                                <>
+                                    <div key="logout" className="navbar-item">
+                                        <Logout />
+                                    </div>
+                                    <div>
+                                        <p>{`Signed In as ${authUser.email}`}</p>
+                                    </div>
+                                </>
+                            ) : (
                                 <div key="logout" className="navbar-item">
-                                    <Logout />
+                                    <Link href="/signUp">Register</Link>
                                 </div>
-                                <div>
-                                    <p>{`Signed In as ${authUser.email}`}</p>
-                                </div>
-                            </>
-                        ) : (
-                            <div key="signup" className="navbar-item">
-                                <Link href="/signUp">Register</Link>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
+                </OutsideClickHandler>
                 <div className='menu-icon' onClick={() => setMenuOpened((prev) => !prev)}>
                     <BiAlignJustify size={35} />
                 </div>
-            </OutsideClickHandler>
-        </div>
+            </div>
         </div>
     );
 };

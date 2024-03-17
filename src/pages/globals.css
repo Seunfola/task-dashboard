@@ -61,6 +61,7 @@ header {
 .logout-button {
   text-decoration: none;
   color: #fff;
+  width:auto;
   background-color: #2ecc71;
   padding: 8px 15px;
   border-radius: 5px;
@@ -379,7 +380,7 @@ input[type='date']:focus,
   border-color: #007bff;
 }
 
-.login-container {
+.login-container, .signup-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -393,38 +394,74 @@ input[type='date']:focus,
 }
 
 .login-title {
-  margin-bottom: 20px;
+    font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
   color: #333;
-  font-size: 24px;
+  background: -webkit-linear-gradient(45deg, #6a11cb 30%, #2575fc 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .login-label {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 5px;
-  width: 100%;
   display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .login-input {
-  font-size: 16px;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
   box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
 }
-
+.login-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
 .login-button {
-  background-color: #007bff;
+  background-color: green;
   color: white;
-  padding: 10px 20px;
+  padding: 12px;
+  margin-bottom: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 
+  0.3s ease, box-shadow 0.3s ease;
+}
+.login-button-twitter{
+  background-color: blue;
+  color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 
+  0.3s ease, box-shadow 0.3s ease;
+}
+.login-button-google{
+  background-color: red;
+  color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 
+  0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-button:hover {
@@ -438,26 +475,19 @@ input[type='date']:focus,
 
 .login-signup-link {
   margin-top: 20px;
+  text-decoration:none;
+  text-align: center;
 }
 
 .login-signup-link a {
   color: #007bff;
-  text-decoration: none;
 }
 
 .login-signup-link a:hover {
-  text-decoration: none;
+  color:grey;
 }
 
-.signup-container {
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(145deg, #f8f9fa, #ffffff);
-  border: none;
-}
+
 
 .signup-title {
   font-size: 28px;
@@ -479,7 +509,6 @@ input[type='date']:focus,
 }
 
 .signup-input {
-  width: 100%;
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #bbb;
@@ -493,16 +522,18 @@ input[type='date']:focus,
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
-
+.btn-grp{
+  display: flex;
+  gap: 1rem;
+}
 .signup-button {
-  background-color: #007bff;
+  background-color: green;
   color: white;
   padding: 12px;
   margin-bottom: 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  width: 100%;
   font-size: 18px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 
@@ -522,7 +553,6 @@ input[type='date']:focus,
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  width: 100%;
   font-size: 18px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -548,33 +578,6 @@ input[type='date']:focus,
   text-align: center;
 }
 
-.login-link {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.login-link:hover {
-  text-decoration: underline;
-  color: #0056b3;
-}
-
-.notification {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #4caf50;
-  color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.notification p {
-  margin: 5px 0;
-}
 
 .navbar {
   display: flex;
@@ -631,7 +634,26 @@ input[type='date']:focus,
   display: none;
 }
 @media (max-width: 768px) {
- .navbar-item {
+.menu-icon {
+    display: block;
+    cursor: pointer; /* Ensure it's clickable */
+  }
+
+  .h-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    background: #1a1a2e;
+    height: 100vh;
+    width: 50%;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    transition: right 0.3s ease;
+    z-index: 1000; /* Ensure it's above other content */
+  }
+
+  .navbar-item {
     display: block; /* Show navbar items */
   }
 
@@ -664,22 +686,5 @@ input[type='date']:focus,
 
   header {
     margin: 0.5rem;
-  }
-  .menu-icon {
-    display: block;
-  }
-
-  .h-menu {
-    position: fixed;
-    top: 0;
-    right:-100%;
-    background: #1a1a2e;
-    height: 100vh;
-    width: 50%;
-    flex-direction: column;
-    padding: 2rem;
-    gap: 1rem;
-    transition: right 0.3s ease;
-    z-index: 1000;
   }
 }
