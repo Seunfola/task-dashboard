@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { BiAlignJustify } from 'react-icons/bi';
+import OutsideClickHandler from 'react-outside-click-handler';
+import Filter from '../../../components/Filter/index';
+import Search from '../../../components/Search/index';
 
 const Navbar = ({ authUser }) => {
     const [menuOpened, setMenuOpened] = useState(false);
@@ -43,24 +46,32 @@ const Navbar = ({ authUser }) => {
                 <header>Task Dashboard</header>
             </div>
             <div className='navbar-envelop'>
-                <div ref={menuRef} className={`h-menu ${menuOpened ? 'open' : ''}`}>
-                    <div className="navbar-list">
-                        {authUser ? (
-                            <>
-                                <div>
-                                    <p>{`Signed In as ${authUser.email}`}</p>
-                                </div>
+                <OutsideClickHandler onOutsideClick={() => setMenuOpened(false)}>
+                    <div ref={menuRef} className={`h-menu ${menuOpened ? 'open' : ''}`}>
+                        <div className="filter-container">
+                            <Filter />
+                        </div>
+                        <div className="search-container">
+                            <Search />
+                        </div>
+                        <div className="navbar-list">
+                            {authUser ? (
+                                <>
+                                    <div>
+                                        <p>{`Signed In as ${authUser.email}`}</p>
+                                    </div>
+                                    <div className="navbar-item">
+                                        <Link href="/logout">Logout</Link> {/* Link to the logout page */}
+                                    </div>
+                                </>
+                            ) : (
                                 <div className="navbar-item">
-                                    <Link href="/logout">Logout</Link> {/* Link to the logout page */}
+                                    <Link href="/signUp">Register</Link>
                                 </div>
-                            </>
-                        ) : (
-                            <div className="navbar-item">
-                                <Link href="/signUp">Register</Link>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
+                </OutsideClickHandler>
                 {/* Render menu icon */}
                 <div className='menu-icon' onClick={() => setMenuOpened((prev) => !prev)}>
                     <BiAlignJustify size={35} />
@@ -70,4 +81,4 @@ const Navbar = ({ authUser }) => {
     );
 };
 
-export default Navbar;
+export
