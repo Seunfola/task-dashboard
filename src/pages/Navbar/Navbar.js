@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
-import Logout from '../Logout';
 import { BiAlignJustify } from 'react-icons/bi';
 import OutsideClickHandler from 'react-outside-click-handler';
 
@@ -58,8 +57,11 @@ const Navbar = ({ authUser }) => {
                         <div className="navbar-list">
                             {authUser ? (
                                 <>
-                                    <div key="logout" className="navbar-item">
-                                        <Logout />
+                                    <div className="navbar-item">
+                                        <Link href="/Logout" legacyBehavior>
+                                            Logout
+                                        </Link>
+                                        
                                     </div>
                                     <div>
                                         <p>{`Signed In as ${authUser.email}`}</p>
