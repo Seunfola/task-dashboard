@@ -133,7 +133,7 @@ const signInWithTwitter = async () => {
       </button>
       </div>
       <div className="login-signup-link">
-        Don't have an account? 
+        create an account? 
         </div>
         <div className="login-link">
           <Link href="/signUp" legacyBehavior>
