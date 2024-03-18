@@ -4,8 +4,13 @@ const TaskForm = ({ onSave, initialData }) => {
     const [task, setTask] = useState({
         title: '',
         description: '',
-        dueDate: ''
+        dueDate: '',
+        dueTime: '',
+        sound:'',
     });
+
+    const [selectedSound, setSelectedSound] = useState(''); 
+    const [audio, setAudio] = useState(null);
 
     useEffect(() => {
         if (initialData) {
@@ -13,16 +18,48 @@ const TaskForm = ({ onSave, initialData }) => {
         }
     }, [initialData]);
 
+
+    const handleSoundChange = (e) => {
+        setSelectedSound(e.target.value);
+    };
+
     const handleChange = (e) => {
-        setTask({ ...task, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        if (name === 'dueDate') {
+            const currentDate = new Date().toISOString().split('T')[0]; 
+            if (value < currentDate) {
+                
+                setTask({ ...task, [name]: currentDate });
+            } else {
+                setTask({ ...task, [name]: value });
+            }
+        } else {
+            setTask({ ...task, [name]: value });
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(task);
-        // Clear the form
-        setTask({ title: '', description: '', dueDate: '' });
+        setTask({ title: '', description: '', dueDate: '', dueTime: '', sound:'' });
+
+        if (audio) {
+            audio.play();
+        }
     };
+
+    const previewSound = () => {
+        if (selectedSound) {
+            const soundUrl = `/sound/${selectedSound}`;
+            const newAudio = new Audio(soundUrl);
+            setAudio(newAudio);
+        }
+    };
+
+    useEffect(() => {
+        previewSound();
+    }, [selectedSound]);
 
     return (
         <form className="task-form" onSubmit={handleSubmit}>
@@ -59,6 +96,28 @@ const TaskForm = ({ onSave, initialData }) => {
                     required
                     className="form-input"
                 />
+            </div>
+            <div className="form-group">
+                <label className="form-label">Time</label>
+                <input
+                    type="time"
+                    name="dueTime"
+                    value={task.dueTime}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                />
+            </div>
+            <div className="form-group">
+                <label className="form-label">Select Sound:</label>
+                <select value={selectedSound} onChange={handleSoundChange}>
+                    <option value="">Select a Sound</option>
+                    <option value="/public/sound/sound1.mp3">Sound 1</option>
+                    <option value="/public/sound/sound2.mp3">Sound 1</option>
+                    <option value="/public/sound/sound2.mp3">Sound 2</option>
+                    
+                </select>
+                <button onClick={previewSound}>Preview Sound</button>
             </div>
             <button type="submit">Save Task</button>
         </form>
