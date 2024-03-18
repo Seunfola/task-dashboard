@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 const TaskItem = ({ task, onDelete,sound, onSave }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -82,7 +84,7 @@ const TaskItem = ({ task, onDelete,sound, onSave }) => {
                     <p className="task-description">Desc: {task.description}</p>
                     <p className="task-date">Due: {task.dueDate}</p>
                     <p className="task-time">Time: {task.dueTime}</p>
-                     <p className="task-time">Alarm: {sound && <audio src={sound} controls />} controls />
+                     <p className="task-time"><FontAwesomeIcon icon={faVolumeUp} /> {sound && <audio src={sound} controls />} controls />
                 </p>
                     {countdown && <p className="task-countdown">Countdown: {countdown}</p>}
                     {sound && <audio src={sound} controls />}
