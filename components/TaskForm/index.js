@@ -111,7 +111,7 @@ const TaskForm = ({ onSave, initialData }) => {
             <div className="form-group">
                 <label className="form-label">Select Sound:</label>
                 <select value={selectedSound} onChange={handleSoundChange}>
-                    <option value="">Select a Sound</option>
+                    <option value="sound">Select a Sound</option>
                     <option value="/public/sound/sound1.mp3">Sound 1</option>
                     <option value="/public/sound/sound2.mp3">Sound 1</option>
                     <option value="/public/sound/sound2.mp3">Sound 2</option>
