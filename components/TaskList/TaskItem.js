@@ -78,11 +78,12 @@ const TaskItem = ({ task, onDelete,sound, onSave }) => {
                 </div>
             ) : (
                 <div className="task-display">
-                    <h3 className="task-title">title: {task.title}</h3>
+                    <h3 className="task-title">{task.title}</h3>
                     <p className="task-description">Desc: {task.description}</p>
                     <p className="task-date">Due: {task.dueDate}</p>
                     <p className="task-time">Time: {task.dueTime}</p>
-                     <p className="task-time">Alarm: {task.sound}</p>
+                     <p className="task-time">Alarm: {sound && <audio src={sound} controls />} controls />
+                </p>
                     {countdown && <p className="task-countdown">Countdown: {countdown}</p>}
                     {sound && <audio src={sound} controls />}
                     <div className="btn-group">
