@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 const TaskForm = ({ onSave, initialData }) => {
     const [task, setTask] = useState({
@@ -51,7 +53,7 @@ const TaskForm = ({ onSave, initialData }) => {
 
     const previewSound = () => {
         if (selectedSound) {
-            const soundUrl = `/sound/${selectedSound}`;
+            const soundUrl = `/public/sound/${selectedSound}`;
             const newAudio = new Audio(soundUrl);
             setAudio(newAudio);
         }
@@ -109,7 +111,7 @@ const TaskForm = ({ onSave, initialData }) => {
                 />
             </div>
             <div className="form-group">
-                <label className="form-label">Select Sound:</label>
+                <label className="form-label"><FontAwesomeIcon icon={faVolumeUp} /></label>
                 <select value={selectedSound} onChange={handleSoundChange}>
                     <option value="sound">Select a Sound</option>
                     <option value="/public/sound/sound1.mp3">Sound 1</option>
@@ -117,7 +119,7 @@ const TaskForm = ({ onSave, initialData }) => {
                     <option value="/public/sound/sound2.mp3">Sound 2</option>
                     
                 </select>
-                <button onClick={previewSound}>Preview Sound</button>
+                <button onClick={previewSound}><FontAwesomeIcon icon={faVolumeUp} /></button>
             </div>
             <button type="submit">Save Task</button>
         </form>
