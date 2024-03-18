@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 const TaskForm = ({ onSave, initialData }) => {
     const [task, setTask] = useState({
@@ -48,7 +46,7 @@ const TaskForm = ({ onSave, initialData }) => {
 
     useEffect(() => {
         previewSound();
-    }, [selectedSound]);
+    }, [selectedSound, previewSound]);
 
     return (
         <form className="task-form" onSubmit={handleSubmit}>
@@ -99,17 +97,13 @@ const TaskForm = ({ onSave, initialData }) => {
                 />
             </div>
             <div className="form-group">
-                <label className="form-label">
-                    <FontAwesomeIcon icon={faVolumeUp} />
-                </label>
-                <select value={selectedSound} onChange={handleSoundChange}>
-                    <option value="">Pick Sound</option>
-                    <option value="/public/sound/sound1.mp3">Sound 1</option>
-                    <option value="/public/sound/sound2.mp3">Sound 2</option>
+                <label className="form-label">Sound</label>
+                <select value={selectedSound} onChange={handleSoundChange} required className="form-input">
+                    <option value="">Select a Sound</option>
+                    <option value="/sound/sound1.mp3">Sound 1</option>
+                    <option value="/sound/sound2.mp3">Sound 2</option>
                 </select>
-                <button onClick={previewSound}>
-                    <FontAwesomeIcon icon={faVolumeUp} />
-                </button>
+                <button type="button" onClick={previewSound} disabled={!selectedSound}>Preview Sound</button>
             </div>
             <button type="submit">Save Task</button>
         </form>
