@@ -184,17 +184,25 @@ button:hover {
 }
 
 .task-display {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    background-color: var(--secondary-bg-color);
+  width: 90%;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
 .task-title {
   margin: 0;
   color: #333;
   font-size: 20px;
+  text-align:center;
+  text-transform: uppercase;
 }
-
+.task-envelope{
+  margin: 0 10px;
+  flex: 1;
+}
 .task-description {
   margin: 0;
   color: #666;
@@ -214,8 +222,17 @@ margin: 0;
 .btn-group {
   display: flex;
   gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
 }
-
+.task-list-enevelope{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 10px;
+  
+}
 .form-input,
 .form-textarea,
 .filter-select,
@@ -247,7 +264,10 @@ button,
   cursor: pointer;
   font-size: var(--button-font-size);
 }
-
+.alarm{
+  margin-top:10px;
+  display: block;
+}
 button:hover {
   background-color: var(--button-hover-bg-color);
 }
@@ -612,6 +632,7 @@ input[type='date']:focus,
 .link {
   text-decoration: none;
   font-size: 16px;
+  color: #d32405;
 }
 
 @media only screen and (max-width: 896px) and (min-width: 360px) {
@@ -628,13 +649,15 @@ input[type='date']:focus,
 
     .link {
         display: block;
+        margin-left: 60px;
+       margin-top: 60px;
     }
 
     .links {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 80px;
+        top: 50px;
         right: 0;
         width: 200px;
         overflow-x: hidden;
@@ -648,6 +671,8 @@ input[type='date']:focus,
 
     .open .links {
         display: block;
+  
+        height: 200px;
     }
 
     .main-content,
@@ -671,7 +696,7 @@ input[type='date']:focus,
 
     .filter-container {
         margin-bottom: 10px;
-        width: 50%; /* Adjust the width of the filter container */
+        width: 70%; /* Adjust the width of the filter container */
     }
 
     .filter-label {

@@ -13,7 +13,7 @@ const Navbar = ({ authUser }) => {
     return (
         <div className={`contain ${menuOpen ? "open" : ''}`}>
             
-            <Link href="/" className='logo'>
+            <Link href="/home" className='logo'>
                 TASK 
             </Link>
 

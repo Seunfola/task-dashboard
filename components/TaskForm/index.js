@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const TaskForm = ({ onSave, initialData }) => {
+const TaskForm = ({ onSave }) => {
     const [task, setTask] = useState({
         title: '',
         description: '',
@@ -13,10 +15,15 @@ const TaskForm = ({ onSave, initialData }) => {
     const [audio, setAudio] = useState(null);
 
     useEffect(() => {
-        if (initialData) {
-            setTask({ ...initialData });
-        }
-    }, [initialData]);
+        // Reset form when initialData changes
+        setTask({
+            title: '',
+            description: '',
+            dueDate: '',
+            dueTime: '',
+            sound: '',
+        });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +33,13 @@ const TaskForm = ({ onSave, initialData }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(task);
-        setTask({ title: '', description: '', dueDate: '', dueTime: '', sound: '' });
+        setTask({
+            title: '',
+            description: '',
+            dueDate: '',
+            dueTime: '',
+            sound: '',
+        });
 
         if (audio) {
             audio.play();
@@ -46,7 +59,7 @@ const TaskForm = ({ onSave, initialData }) => {
 
     useEffect(() => {
         previewSound();
-    }, [selectedSound, previewSound]);
+    }, [selectedSound]);
 
     return (
         <form className="task-form" onSubmit={handleSubmit}>
@@ -100,12 +113,14 @@ const TaskForm = ({ onSave, initialData }) => {
                 <label className="form-label">Sound</label>
                 <select value={selectedSound} onChange={handleSoundChange} required className="form-input">
                     <option value="">Select a Sound</option>
-                    <option value="/sound/sound1.mp3">Sound 1</option>
-                    <option value="/sound/sound2.mp3">Sound 2</option>
+                    <option value="/public/sound/sound1.mp3">Sound 1</option>
+                    <option value="/public/sound/sound2.mp3">Sound 2</option>
+                    <option value="/public/sound/sound3.mp3">Sound 3</option>
+                    <option value="/public/sound/sound4.mp3">Sound 4</option>
                 </select>
-                <button type="button" onClick={previewSound} disabled={!selectedSound}>Preview Sound</button>
+                <button className='alarm' type="button" onClick={previewSound} disabled={!selectedSound}><FontAwesomeIcon icon={faPlayCircle} /></button>
             </div>
-            <button type="submit">Save Task</button>
+            <button type="submit">Save </button>
         </form>
     );
 };
