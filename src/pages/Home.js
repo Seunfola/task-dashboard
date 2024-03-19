@@ -17,7 +17,7 @@ const Home = () => {
     // Load tasks from localStorage
     const savedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     setTasks(savedTasks);
-    setInitialLoad(false); // Set initialLoad to false after the first load
+    setInitialLoad(false);
   }, [initialLoad]);
 
   const handleAddEditTask = (task) => {

@@ -1,10 +1,11 @@
 import React from 'react'
 import Dashboard from './Home'
+import Login from './Login'
 
 const Homepage = () => {
   return (
     <div className='homepage'>
-      <Dashboard />
+      <Login />
     </div>
   )
 }

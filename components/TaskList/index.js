@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TaskItem from './TaskItem';
 import Pagination from '../Pagination';
-import { editTask, setCurrentPage, deleteTask } from '../../src/store/tasksSlice'; // Import deleteTask action
+import { editTask, setCurrentPage, deleteTask } from '../../src/store/tasksSlice';
+import TaskForm from "./../TaskForm/index";
 
-const TaskList = ({ sound }) => { // Remove onDelete prop as it's not needed here
+const TaskList = ({ sound }) => {
     const { tasks, filter, searchQuery, currentPage, tasksPerPage } = useSelector(state => state.tasks);
     const dispatch = useDispatch();
     const [updatedTasks, setUpdatedTasks] = useState([]); 
