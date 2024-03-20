@@ -27,12 +27,13 @@ const TaskList = ({ sound }) => {
                     return { ...task, status: 'pending' };
                 }
             });
-            setUpdatedTasks(updatedTasks);
+            dispatch(editTask(updatedTasks)); // Update tasks in Redux store
+            setUpdatedTasks(updatedTasks); // Update local state
         };
         updateTaskStatus();
-    }, [tasks, sound]);
+    }, [tasks, sound, dispatch]);
 
-    const filteredTasks = tasks.filter(task => {
+    const filteredTasks = updatedTasks.filter(task => { // Use updatedTasks instead of tasks
         const matchesFilter = filter === 'all' || task.status === filter;
         const matchesSearch = !searchQuery || task.title.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesFilter && matchesSearch;
@@ -51,23 +52,29 @@ const TaskList = ({ sound }) => {
         dispatch(deleteTask(taskId)); // Dispatch deleteTask action with taskId
     };
 
+    const toggleStatus = () => {
+        const newFilter = filter === 'completed' ? 'pending' : 'completed';
+        dispatch(setFilter(newFilter));
+    };
+
     const paginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
     return (
         <div>
-            {isEditingTask ? ( // Render TaskForm if editing, else render TaskItem
-                <TaskForm onSave={handleSaveEdit} initialData={isEditingTask} />
-            ) : (
-                currentTasks.map(task => (
-                    <TaskItem
-                        key={task.id}
-                        task={task}
-                        onDelete={handleDelete} 
-                        onEdit={() => setIsEditingTask(task)} 
-                        sound={task.sound}
-                    />
-                ))
-            )}
+            
+            {currentTasks.map(task => (
+                <TaskItem
+                    key={task.id}
+                    task={task}
+                    onDelete={handleDelete} 
+                    onSave={handleSaveEdit}
+                    onEdit={() => setIsEditingTask(task)} 
+                    sound={task.sound}
+                />
+            ))}
+                <button onClick={toggleStatus}>
+                Toggle {filter === 'completed' ? 'Pending' : 'Completed'}
+            </button>
             <Pagination
                 totalTasks={filteredTasks.length}
                 tasksPerPage={tasksPerPage}
