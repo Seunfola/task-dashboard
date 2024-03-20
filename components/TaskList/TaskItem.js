@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { updateDoc, doc } from 'firebase/firestore';
+import { firestore } from '../../firebase/firebase'; // Import firestore instance
 
-const TaskItem = ({ task, onSave, onDelete, sound }) => {
+const TaskItem = ({ task, sound }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTask, setEditedTask] = useState({ ...task });
     const [countdown, setCountdown] = useState(null);
 
     useEffect(() => {
-
         const calculateCountdown = () => {
             if (task.status === 'pending') {
                 const dueDate = new Date(task.dueDate);
@@ -35,9 +36,14 @@ const TaskItem = ({ task, onSave, onDelete, sound }) => {
         setEditedTask({ ...editedTask, [e.target.name]: e.target.value });
     };
 
-    const saveEdit = () => {
-        onSave(editedTask);
-        setIsEditing(false);
+    const saveEdit = async () => {
+        try {
+            const taskRef = doc(firestore, 'tasks', task.id);
+            await updateDoc(taskRef, editedTask);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
     };
 
     return (
@@ -83,24 +89,24 @@ const TaskItem = ({ task, onSave, onDelete, sound }) => {
                     <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
                 </div>
             ) : (
-                    <div className="task-display">
+                <div className="task-display">
                     <h3 className="task-title">{task.title}</h3>
                     <div className='task-list-enevelope'>
-                    <p className="task-description">Desc: {task.description}</p>
-                    <p className="task-date">Due: {task.dueDate}</p>
-                    <p className="task-time">Time: {task.dueTime}</p>
-                            {task.status === 'pending' && <span className="pending-tag">Pending</span>}
-                            {task.status === 'completed' && <span className="completed-tag">Completed</span>}
-                    <p className="task-time">
-                        <FontAwesomeIcon icon={faVolumeUp} />
-                        {sound && <audio src={sound} controls />}
-                        {countdown && <span className="task-countdown">Countdown: {countdown}</span>}
-                    </p>
-                        </div>
-                        <div className="btn-group">
-                    <button className="delete-btn" onClick={() => setIsEditing(true)}>Edit</button>
+                        <p className="task-description">Desc: {task.description}</p>
+                        <p className="task-date">Due: {task.dueDate}</p>
+                        <p className="task-time">Time: {task.dueTime}</p>
+                        {task.status === 'pending' && <span className="pending-tag">Pending</span>}
+                        {task.status === 'completed' && <span className="completed-tag">Completed</span>}
+                        <p className="task-time">
+                            <FontAwesomeIcon icon={faVolumeUp} />
+                            {sound && <audio src={sound} controls />}
+                            {countdown && <span className="task-countdown">Countdown: {countdown}</span>}
+                        </p>
+                    </div>
+                    <div className="btn-group">
+                        <button className="delete-btn" onClick={() => setIsEditing(true)}>Edit</button>
                         <button className="edit-btn" onClick={() => onDelete(task.id)}>Delete</button>
-                        </div>
+                    </div>
                 </div>
             )}
         </div>
