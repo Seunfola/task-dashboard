@@ -1,31 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getFirestore } from '../../../firebase/firebase'; // Import Firestore function
 
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
-        tasks: [], // Initialize tasks array to store loaded tasks
+        tasks: [],
         filter: 'all',
         searchQuery: '',
         currentPage: 1,
         tasksPerPage: 3,
         authError: null,
-        loading: false, // Add loading state to track async operation
+        loading: false,
     },
     reducers: {
         addTask: (state, action) => {
             state.tasks.push(action.payload);
-            localStorage.setItem('tasks', JSON.stringify(state.tasks)); // Update local storage
         },
         editTask: (state, action) => {
             const index = state.tasks.findIndex(task => task.id === action.payload.id);
             if (index !== -1) {
                 state.tasks[index] = action.payload;
-                localStorage.setItem('tasks', JSON.stringify(state.tasks)); // Update local storage
             }
         },
         deleteTask: (state, action) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
-            localStorage.setItem('tasks', JSON.stringify(state.tasks)); // Update local storage
         },
         setFilter: (state, action) => {
             state.filter = action.payload;
@@ -43,10 +41,12 @@ export const tasksSlice = createSlice({
             state.authError = 'Signup failed';
         },
         loadUserTasks: (state) => {
-            const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-            if (storedTasks) {
-                state.tasks = storedTasks;
-            }
+            const firestore = getFirestore();
+            firestore.collection('tasks').get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    state.tasks.push(doc.data());
+                });
+            });
         },
     },
 });
