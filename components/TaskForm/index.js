@@ -127,7 +127,8 @@ const TaskForm = ({ onSave }) => {
                     required
                     className="form-input"
                     type="file"
-                    accept="audio/*"
+                    accept="audio/mpeg, audio/mp3, audio/ogg, audio/wav, audio/aac, audio/x-aiff, audio/x-flac, audio/x-midi, audio/x-m4a, audio/x-ms-wma, audio/x-wav"
+                
                     controls 
                 />
                 <div className='taskforms-btn'>
