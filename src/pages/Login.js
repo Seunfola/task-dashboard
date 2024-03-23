@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const Login = () => {
+const Login = ({ authUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Added loading state
@@ -33,7 +33,7 @@ const Login = () => {
     }
   };
 
-const signInWithTwitter = async () => {
+  const signInWithTwitter = async () => {
     setLoading(true); // Set loading to true during sign in
     try {
       await signInWithPopup(auth, twitterProvider);
@@ -70,12 +70,23 @@ const signInWithTwitter = async () => {
         router.push('/Home');
       }, 2000);
     } catch (error) {
-      // Display error message
-      console.log(error);
+      // Display specific error messages based on error code
+      const errorCode = error.code;
+      let errorMessage = 'Login failed! Please check your email and password.';
+      if (errorCode === 'auth/user-not-found') {
+        errorMessage = 'No user found with this email address.';
+      } else if (errorCode === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password. Please try again.';
+      } else if (errorCode === 'auth/too-many-requests') {
+        errorMessage = 'Too many unsuccessful login attempts. Please try again later.';
+      } else {
+        errorMessage = error.message;
+      }
+
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Login failed!',
+        text: errorMessage,
       });
     } finally {
       setLoading(false); // Reset loading state
@@ -86,7 +97,6 @@ const signInWithTwitter = async () => {
     const unsubscribe = onAuthStateChanged(auth, (userCred) => {
       if (userCred) {
         const { email, emailVerified, uid } = userCred;
-        // No need to handle user state here as it's not used in this component
       }
     });
 
@@ -124,26 +134,29 @@ const signInWithTwitter = async () => {
           />
         </div>
       </div>
-<div className='btn-grp'>
-      <button className="login-button" onClick={handleSignIn} disabled={loading}>
-        {loading ? 'Logging in...' : <FontAwesomeIcon icon={faEnvelope} />}
-      </button>
-      <button className="login-button-google" onClick={signInWithGoogle} disabled={loading}>
-        {loading ? 'google' : <FontAwesomeIcon icon={faGoogle} />}
-      </button>
-      <button className="login-button-twitter" onClick={signInWithTwitter} disabled={loading}>
-        {loading ? 'twitter' : <FontAwesomeIcon icon={faTwitter} />}
-      </button>
+      <div className='btn-grp'>
+        <button className="login-button" onClick={handleSignIn} disabled={loading}>
+          {loading ? 'Logging in...' : <FontAwesomeIcon icon={faEnvelope} />}
+        </button>
+        <button className="login-button-google" onClick={signInWithGoogle} disabled={loading}>
+          {loading ? 'google' : <FontAwesomeIcon icon={faGoogle} />}
+        </button>
+        <button className="login-button-twitter" onClick={signInWithTwitter} disabled={loading}>
+          {loading ? 'twitter' : <FontAwesomeIcon icon={faTwitter} />}
+        </button>
       </div>
       <div className="login-signup-link">
-        create an account? 
-        </div>
-        <div className="login-link">
-          <Link href="/signUp" legacyBehavior>
-              Signup
-            </Link>
-          </div>
+        {authUser ? (
+          <Link href="/logout" className='linking'>
+            Logout
+          </Link>
+        ) : (
+          <Link href="/signUp" className='linking'>
+            Signup
+          </Link>
+        )}
       </div>
+    </div>
   );
 };
 

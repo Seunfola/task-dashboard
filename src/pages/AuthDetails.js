@@ -1,34 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../../firebase/firebase';
-import { onAuthStateChanged } from '../../firebase/firebase';
+import { auth, onAuthStateChanged } from '../../firebase/firebase';
 import Navbar from '../../src/pages/Navbar/Navbar';
 
 const AuthDetails = () => {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthUser(user)
+        const unsubscribe = onAuthStateChanged(auth, (userCred) => {
+            if (userCred) {
+                setAuthUser(userCred); // User is signed in
             } else {
-                setAuthUser(null)
+                setAuthUser(null); // User is signed out
             }
         });
-        return () => {
-            listen();
-        }
+
+        return () => unsubscribe();
     }, []);
 
     return (
         <div>
-            {authUser ? (
-                <div>
-                    <Navbar authUser={authUser} /> {/* Pass the authUser prop to the Navbar component */}
-                    <p>{`Signed In as ${authUser.email}`}</p>
-                </div>
-            ) : (
-                <p>Signed Out</p>
-            )}
+                    <Navbar authUser={authUser} />      
         </div>
     );
 };

@@ -8,7 +8,7 @@ import TaskItem from '../../components/TaskList/TaskItem'; // Adjust the import 
 
 const Home = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const [initialLoad, setInitialLoad] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);

@@ -15,7 +15,6 @@ const TaskForm = ({ onSave }) => {
     const [audio, setAudio] = useState(null);
 
     useEffect(() => {
-        // Reset form when initialData changes
         setTask({
             title: '',
             description: '',
@@ -47,15 +46,21 @@ const TaskForm = ({ onSave }) => {
     };
 
     const handleSoundChange = (e) => {
-        setSelectedSound(e.target.value);
+        const file = e.target.files[0];
+        setSelectedSound(file);
     };
 
     const previewSound = () => {
         if (selectedSound) {
-            const newAudio = new Audio(selectedSound);
-            setAudio(newAudio);
+            const reader = new FileReader();
+            reader.onload = () => {
+                const newAudio = new Audio(reader.result);
+                setAudio(newAudio);
+            };
+            reader.readAsDataURL(selectedSound);
         }
     };
+
 
     useEffect(() => {
         previewSound();
@@ -110,17 +115,22 @@ const TaskForm = ({ onSave }) => {
                 />
             </div>
             <div className="form-group">
-                <label className="form-label">Sound</label>
-                <select value={selectedSound} onChange={handleSoundChange} required className="form-input">
-                    <option value="">Select a Sound</option>
-                    <option value="/public/sound/sound1.mp3">Sound 1</option>
-                    <option value="/public/sound/sound2.mp3">Sound 2</option>
-                    <option value="/public/sound/sound3.mp3">Sound 3</option>
-                    <option value="/public/sound/sound4.mp3">Sound 4</option>
-                </select>
-                <button className='alarm' type="button" onClick={previewSound} disabled={!selectedSound}><FontAwesomeIcon icon={faPlayCircle} /></button>
+                <label htmlFor="soundInput" className="form-label">Alarm</label>
+                <input
+                    id="soundInput"
+                    onChange={handleSoundChange}
+                    required
+                    className="form-input"
+                    type="file"
+                    accept="audio/*"
+                    controls 
+                />
+                <div className='taskforms-btn'>
+                <button className='alarm' type="button" onClick={previewSound} disabled={!selectedSound}>play <FontAwesomeIcon icon={faPlayCircle} /></button>
+                    <button type="submit" className='alarm'>Save </button>
+                </div>
             </div>
-            <button type="submit">Save </button>
+            
         </form>
     );
 };

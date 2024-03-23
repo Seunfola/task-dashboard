@@ -2,6 +2,8 @@ import React from 'react';
 import { auth } from '../../firebase/firebase';
 import { signOut } from 'firebase/auth';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Logout = () => {
     const handleSignOut = async () => {
@@ -22,16 +24,21 @@ const Logout = () => {
                 console.log('Logged out');
             } catch (error) {
                 console.error('Error signing out:', error.message);
-                // Handle error
             }
         }
     };
 
     return (
         <div className="logout-container">
+            <div className="logo">
+                <FontAwesomeIcon icon={faUser} className="logo-icon" />
+            </div>
+            <h1 logout-heading>Click to logout from this app</h1>
             <button className="logout-button" onClick={handleSignOut}>
                 Log Out
             </button>
+           
+           
         </div>
     );
 };

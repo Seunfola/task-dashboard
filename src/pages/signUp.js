@@ -48,7 +48,6 @@ const Signup = () => {
         const { email, emailVerified } = userCred;
         setUser({ email, emailVerified });
 
-        // If email is verified, update the state
         if (emailVerified) {
           setVerificationComplete(true);
           // Display success notification
@@ -66,21 +65,7 @@ const Signup = () => {
     return () => {
       unsubscribe();
     };
-  }, [router]); // Dependency array includes router to ensure proper cleanup of the useEffect when the route changes
-
-  useEffect(() => {
-    // Redirect to login page after email verification
-    if (verificationComplete) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Redirecting to login...',
-      });
-      setTimeout(() => {
-        router.push('/Login');
-      }, 2000); // Redirect after 2 seconds
-    }
-  }, [verificationComplete, router]);
+  }, []); // Only run once on component mount
 
   return (
     <div>
@@ -114,17 +99,17 @@ const Signup = () => {
         <button className="signup-button" onClick={handleSignUp} disabled={isLoading}>
           {isLoading ? 'Signing Up...' : 'Sign Up'}
         </button>
+        <div className="login-signup-link">
+          <p>Already have an account? </p>
+          <Link href="/Login" className='linking'>
+            Login
+          </Link>
 
-        <div className="signup-login-link">
-          Already have an account?
-          </div>
-          <div className="login-link">
-            <Link href="/Login" legacyBehavior>
-              Login
-            </Link>
-          </div>
         </div>
+
+
       </div>
+    </div>
   );
 };
 

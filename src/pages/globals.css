@@ -22,17 +22,7 @@ header {
   font-size: 24px;
 }
 
-
-
-.user-avatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #E94560;
-}
-
-.user-displayName {
+.user-display {
   font-size: 1rem;
   color: #FFF;
   font-weight: 500;
@@ -153,10 +143,14 @@ header {
 .delete-btn {
   padding: 8px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
 }
 
 .save-btn {
@@ -184,7 +178,7 @@ button:hover {
 }
 
 .task-display {
-    background-color: var(--secondary-bg-color);
+  background-color: var(--secondary-bg-color);
   width: 90%;
   padding: 15px;
   border-radius: 8px;
@@ -209,19 +203,28 @@ button:hover {
 }
 
 .task-date {
-margin: 0;
+  margin: 0;
   color: #666;
 }
-
+.task-status{
+  margin: 0;
+  color: #7cb6eb;
+  font-style: italic; 
+}
 .task-time{
- margin: 0;
+  margin: 0;
   color: #888;
   font-style: italic;
 }
-
+.task-sound{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap:10px;
+  color: #888;
+}
 .btn-group {
   display: flex;
-  flex-direction: column;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -250,20 +253,29 @@ input[type='date'] {
   height: 100px;
   resize: vertical;
 }
-
+.taskforms-btn{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
 button,
 .form-button,
 .save-btn,
 .cancel-btn,
 .edit-btn,
 .delete-btn {
-  background-color: var(--button-bg-color);
-  color:  #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: var(--button-font-size);
+   background-color: var(--button-bg-color);
+   color:  #fff;
+   border: none;
+   padding: 10px 20px;
+   border-radius:20px;
+   cursor: pointer;
+   font-size: var(--button-font-size);
+   -webkit-border-radius:20px;
+   -moz-border-radius:20px;
+   -ms-border-radius:20px;
+   -o-border-radius:20px;
 }
 .alarm{
   margin-top:10px;
@@ -273,10 +285,10 @@ button:hover {
   background-color: var(--button-hover-bg-color);
 }
 
-.save-btn { background-color: #4CAF50; }
-.cancel-btn { background-color: #f44336; }
+.save-btn { background-color: #3e62ef; }
+.cancel-btn { background-color: #d06058; }
 .edit-btn { background-color: #ffc107; color: black; }
-.delete-btn { background-color: #007bff; }
+.delete-btn { background-color: #ff0000; }
 
 input[type='date']:focus,
 .form-input:focus,
@@ -415,7 +427,7 @@ input[type='date']:focus,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   max-width: 400px;
-  margin: 100px auto;
+  margin: 10px auto;
 } 
 .login-label {
   display: block;
@@ -538,7 +550,6 @@ input[type='date']:focus,
   background-color: #007bff;
   color: white;
   padding: 12px;
-  margin-bottom: 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -602,6 +613,7 @@ input[type='date']:focus,
   font-weight: 600;
   letter-spacing: 0.05rem;
   color: #e94560;
+  text-decoration: none;
 }
 .filter-container,
 .search-container
@@ -635,6 +647,40 @@ input[type='date']:focus,
   font-size: 16px;
   color: #d32405;
 }
+.linking{
+text-decoration: none;
+  font-size: 16px;
+  color: #d32405;
+}
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.logout-heading {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
 
 @media only screen and (max-width: 896px) and (min-width: 360px) {
     .contain {
@@ -647,7 +693,6 @@ input[type='date']:focus,
         flex-direction: column;
         align-items: flex-start;
     }
-
     .link {
         display: block;
         margin-left: 60px;
@@ -697,7 +742,7 @@ input[type='date']:focus,
 
     .filter-container {
         margin-bottom: 10px;
-        width: 70%; /* Adjust the width of the filter container */
+        width: 70%; 
     }
 
     .filter-label {
@@ -712,12 +757,15 @@ input[type='date']:focus,
 
     .search-container {
         margin-bottom: 10px;
-        width: 50%; /* Adjust the width of the search container */
+        width: 50%; 
     }
 
     .search-input {
         padding: 8px;
         font-size: 14px;
-        width: 100%; /* Make the search input fill the container */
+        width: 100%;
+    }
+     .logout-container {
+        padding: 20px;
     }
 }

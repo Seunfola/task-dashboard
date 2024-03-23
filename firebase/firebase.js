@@ -4,7 +4,6 @@ import {
   onAuthStateChanged, TwitterAuthProvider,
  GoogleAuthProvider
 } from "firebase/auth";
-import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCDg7IdSUj-iFbZM8RLfW5Uqu8s46MZF1o",
@@ -21,6 +20,5 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const twitterProvider = new TwitterAuthProvider();
-const firestore = getFirestore(app); 
 
-export { app, auth, googleProvider, onAuthStateChanged, twitterProvider, firestore };
+export { auth, googleProvider, onAuthStateChanged, twitterProvider };

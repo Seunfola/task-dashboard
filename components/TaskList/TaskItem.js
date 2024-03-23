@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
-import { updateDoc, doc } from 'firebase/firestore';
-import { firestore } from '../../firebase/firebase'; // Import firestore instance
+import { faVolumeUp, faClock } from '@fortawesome/free-solid-svg-icons';
 
-const TaskItem = ({ task, sound }) => {
+const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTask, setEditedTask] = useState({ ...task });
     const [countdown, setCountdown] = useState(null);
+    const [taskStatus, setTaskStatus] = useState(null);
+    const [currentSound, setCurrentSound] =useState(null);
 
     useEffect(() => {
         const calculateCountdown = () => {
-            if (task.status === 'pending') {
-                const dueDate = new Date(task.dueDate);
-                const currentTime = new Date();
-                const timeDifference = dueDate - currentTime;
+            const dueDate = new Date(task.dueDate);
+            const currentTime = new Date();
+            const timeDifference = dueDate - currentTime;
 
-                if (timeDifference > 0) {
-                    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                    setCountdown(`${days} days, ${hours} hours, ${minutes} minutes`);
-                } else {
-                    setCountdown('Past due');
-                }
+            if (timeDifference > 0) {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                setCountdown(`${days} days, ${hours} hours, ${minutes} minutes`);
+                setTaskStatus('Pending');
             } else {
-                setCountdown(null);
+                setCountdown('Past due');
+                setTaskStatus('Completed');
             }
         };
 
         calculateCountdown();
     }, [task]);
 
+
     const handleEditChange = (e) => {
         setEditedTask({ ...editedTask, [e.target.name]: e.target.value });
     };
 
-    const saveEdit = async () => {
-        try {
-            const taskRef = doc(firestore, 'tasks', task.id);
-            await updateDoc(taskRef, editedTask);
-            setIsEditing(false);
-        } catch (error) {
-            console.error('Error updating task:', error);
-        }
+    const handleSoundChange = (e) => {
+        const newSound = URL.createObjectURL(e.target.files[0]); 
+        setCurrentSound(newSound); 
+    };
+
+
+    const saveEdit = () => {
+        onSave(editedTask);
+        setIsEditing(false);
     };
 
     return (
@@ -81,9 +81,16 @@ const TaskItem = ({ task, sound }) => {
                         value={editedTask.dueTime}
                         onChange={handleEditChange}
                     />
-                    <label className="form-label">Sound</label>
+    
                     <div className="edit-sound">
-                        <FontAwesomeIcon icon={faVolumeUp} />
+                        <FontAwesomeIcon icon={faVolumeUp}
+                         />
+                        <input
+                            className="edit-sound-input"
+                            type="file"
+                            accept="audio/*"
+                            onChange={handleSoundChange}
+                        />
                     </div>
                     <button className="save-btn" onClick={saveEdit}>Save</button>
                     <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
@@ -93,19 +100,21 @@ const TaskItem = ({ task, sound }) => {
                     <h3 className="task-title">{task.title}</h3>
                     <div className='task-list-enevelope'>
                         <p className="task-description">Desc: {task.description}</p>
-                        <p className="task-date">Due: {task.dueDate}</p>
+                        <p className="task-date">Due Date: {task.dueDate}</p>
                         <p className="task-time">Time: {task.dueTime}</p>
-                        {task.status === 'pending' && <span className="pending-tag">Pending</span>}
-                        {task.status === 'completed' && <span className="completed-tag">Completed</span>}
-                        <p className="task-time">
-                            <FontAwesomeIcon icon={faVolumeUp} />
-                            {sound && <audio src={sound} controls />}
-                            {countdown && <span className="task-countdown">Countdown: {countdown}</span>}
-                        </p>
+                        
+                        <p className="task-sound">
+                            sound <FontAwesomeIcon icon={faVolumeUp} />:
+                            
+                            </p>
+                            <p className="task-status">Status: {taskStatus}</p>
+                            <p className="task-time">
+                                <FontAwesomeIcon icon={faClock} /> {countdown}
+                            </p>
                     </div>
                     <div className="btn-group">
-                        <button className="delete-btn" onClick={() => setIsEditing(true)}>Edit</button>
-                        <button className="edit-btn" onClick={() => onDelete(task.id)}>Delete</button>
+                        <button className="delete-btn" onClick={() => onDelete(task.id)}>Delete</button>
+                        <button className="edit-btn" onClick={() => setIsEditing(true)}>Edit</button>
                     </div>
                 </div>
             )}
@@ -114,3 +123,4 @@ const TaskItem = ({ task, sound }) => {
 };
 
 export default TaskItem;
+
