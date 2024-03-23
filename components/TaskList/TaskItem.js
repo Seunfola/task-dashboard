@@ -7,7 +7,8 @@ const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
     const [editedTask, setEditedTask] = useState({ ...task });
     const [countdown, setCountdown] = useState(null);
     const [taskStatus, setTaskStatus] = useState(null);
-    const [currentSound, setCurrentSound] =useState(null);
+    const [selectedSound, setSelectedSound] = useState(null);
+    const [selectedSoundTitle, setSelectedSoundTitle] = useState('');
 
     useEffect(() => {
         const calculateCountdown = () => {
@@ -36,9 +37,11 @@ const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
     };
 
     const handleSoundChange = (e) => {
-        const newSound = URL.createObjectURL(e.target.files[0]); 
-        setCurrentSound(newSound); 
+        const selectedFile = e.target.files[0];
+        setSelectedSound(selectedFile);
+        setSelectedSoundTitle(selectedFile.name);
     };
+
 
 
     const saveEdit = () => {

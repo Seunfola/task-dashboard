@@ -56,6 +56,11 @@ const TaskForm = ({ onSave }) => {
             reader.onload = () => {
                 const newAudio = new Audio(reader.result);
                 setAudio(newAudio);
+                newAudio.play();
+                setTimeout(() => {
+                    newAudio.pause();
+                    newAudio.currentTime = 0;
+                }, 15000);
             };
             reader.readAsDataURL(selectedSound);
         }
