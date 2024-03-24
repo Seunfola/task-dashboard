@@ -778,4 +778,7 @@ text-decoration: none;
      .logout-container {
         padding: 20px;
     }
+      .tab-button {
+    display: none; 
+  }
 }
