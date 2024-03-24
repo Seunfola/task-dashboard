@@ -725,9 +725,19 @@ text-decoration: none;
     .task-form-container,
     .task-list-container {
         margin: 10px 0;
-        /* width: max-width; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-
+    .task-envelope{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin:auto;
+      width: 100%;
+    }
     .footer-container {
         width: 100%;
     }
