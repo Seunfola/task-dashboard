@@ -40,6 +40,10 @@ const TaskForm = ({ onSave }) => {
 
         if (audio) {
             audio.play();
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 15000);
         }
     };
 
