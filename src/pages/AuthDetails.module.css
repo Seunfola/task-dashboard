@@ -1,0 +1,71 @@
+/* AuthDetails.module.css */
+
+.user-details {
+    display: flex;
+    align-items: flex-end;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0.3rem 0.3rem;
+}
+
+.online .dot {
+    background-color: rgb(17, 92, 58); 
+}
+
+.offline .dot {
+    background-color: grey;
+}
+
+.link {
+    margin-left: auto;
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.3rem;
+}
+.link:hover {
+     color: blue;
+}
+.activeText{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 0.6rem;
+     gap: 10px;
+}
+
+@media only screen and (max-width: 896px) and (min-width: 360px) {
+    .authDetails {
+        display: flex;
+        flex-direction: column;
+        padding: 0.3rem;
+    }
+    .activeText{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-top: 0.6rem;
+}
+
+    .dot {
+        display: block;
+        width: 8px;
+        height: 8px;
+        margin: 0.6rem 0;
+    }
+    .link {
+        display: block;
+        font-size: 1.1rem;
+        justify-content: center;
+        align-items: center; 
+        align-items: center;
+        margin-top: 0.4rem;
+       
+    }
+}

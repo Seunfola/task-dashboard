@@ -7,14 +7,18 @@
   --button-font-size: 16px;
   --input-padding: 0.375rem 0.75rem;
 }
+* { box-sizing: border-box;
+overflow-x: hidden; 
+overflow-y: scroll;
+}
 
-body {
+/* body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f7f6;
   color: #333;
-}
+} */
 
 header {
   padding: 15px 0;
@@ -61,13 +65,6 @@ header {
   background-color: #27ae60;
 }
 
-.user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
 .user-displayName {
   font-weight: bold;
   color: #fff;
@@ -83,7 +80,7 @@ header {
 .task-form-container,
 .task-list-container {
   flex: 1;
-  margin: 0 10px;
+  margin: 0;
 }
 
 .task-form,
@@ -136,7 +133,11 @@ header {
   font-size: 16px;
   box-sizing: border-box;
 }
-
+.edit-sound{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .save-btn,
 .cancel-btn,
 .edit-btn,
@@ -695,7 +696,7 @@ text-decoration: none;
     }
     .link {
         display: block;
-        margin-left: 60px;
+        margin-left: 50px;
        margin-top: 60px;
     }
 
@@ -705,27 +706,26 @@ text-decoration: none;
         position: absolute;
         top: 50px;
         right: 0;
-        width: 200px;
+        width: 210px;
         overflow-x: hidden;
     }
 
     .open {
-        height: 200px;
+        height: 250px;
         top: 0px;
         right: 0px;
     }
 
     .open .links {
         display: block;
-  
-        height: 200px;
+        height: 250px;
     }
 
     .main-content,
     .task-form-container,
     .task-list-container {
         margin: 10px 0;
-        width: max-width;
+        /* width: max-width; */
     }
 
     .footer-container {

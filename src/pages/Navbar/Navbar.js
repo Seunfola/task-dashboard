@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Filter from '../../../components/Filter/index';
 import Search from '../../../components/Search/index';
-import { onAuthStateChanged } from 'firebase/auth';
+import AuthDetails from '../AuthDetails';
 
 const Navbar = ({ authUser }) => {
+
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -15,12 +16,12 @@ const Navbar = ({ authUser }) => {
         <div className={`contain ${menuOpen ? "open" : ''}`}>
 
             <Link href="/home" className='logo'>
-                TASK
+                TASK<br/> NOTE
             </Link>
 
             <div className='navWrapper'>
 
-                <div className={`menuIcon ${menuOpen ? 'open' : 'n'}`} onClick={toggleMenu}>
+                <div className={`menuIcon ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
                     <div className='bar'></div>
                     <div className='bar'></div>
                     <div className='bar'></div>
@@ -32,16 +33,7 @@ const Navbar = ({ authUser }) => {
                     <div className='searchContainer'>
                         <Search />
                     </div>
-                    <div className='links'>
-                        <Link href="/signUp" className='link'>
-                            Register
-                        </Link>
-                    </div>
-                    <div className='links-2'>
-                        <Link href="/Logout" className='link'>
-                            Logout
-                        </Link>
-                    </div>
+                    <AuthDetails />
                 </div>
             </div>
         </div>

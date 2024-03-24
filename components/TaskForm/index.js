@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TaskForm = ({ onSave }) => {
     const [task, setTask] = useState({
@@ -56,20 +54,15 @@ const TaskForm = ({ onSave }) => {
             reader.onload = () => {
                 const newAudio = new Audio(reader.result);
                 setAudio(newAudio);
-                newAudio.play();
-                setTimeout(() => {
-                    newAudio.pause();
-                    newAudio.currentTime = 0;
-                }, 15000);
             };
             reader.readAsDataURL(selectedSound);
         }
     };
 
-
     useEffect(() => {
         previewSound();
     }, [selectedSound]);
+
 
     return (
         <form className="task-form" onSubmit={handleSubmit}>
@@ -128,13 +121,11 @@ const TaskForm = ({ onSave }) => {
                     className="form-input"
                     type="file"
                     accept="audio/mpeg, audio/mp3, audio/ogg, audio/wav, audio/aac, audio/x-aiff, audio/x-flac, audio/x-midi, audio/x-m4a, audio/x-ms-wma, audio/x-wav"
-                
-                    controls 
                 />
-                <div className='taskforms-btn'>
-                <button className='alarm' type="button" onClick={previewSound} disabled={!selectedSound}>play <FontAwesomeIcon icon={faPlayCircle} /></button>
-                    <button type="submit" className='alarm'>Save </button>
-                </div>
+                {audio && <audio controls src={audio.src} />}
+            </div>
+            <div className='taskforms-btn'>
+                <button type="submit" className='alarm'>Save</button>
             </div>
             
         </form>

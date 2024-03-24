@@ -42,8 +42,6 @@ const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
         setSelectedSoundTitle(selectedFile.name);
     };
 
-
-
     const saveEdit = () => {
         onSave(editedTask);
         setIsEditing(false);
@@ -94,6 +92,7 @@ const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
                             accept="audio/mpeg, audio/mp3, audio/ogg, audio/wav, audio/aac, audio/x-aiff, audio/x-flac, audio/x-midi, audio/x-m4a, audio/x-ms-wma, audio/x-wav"
                             onChange={handleSoundChange}
                         />
+                        {selectedSoundTitle && <audio controls src={URL.createObjectURL(selectedSound)} />}
                     </div>
                     <button className="save-btn" onClick={saveEdit}>Save</button>
                     <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
@@ -102,12 +101,12 @@ const TaskItem = ({ task, sound, onDelete, onSave, onEdit }) => {
                 <div className="task-display">
                     <h3 className="task-title">{task.title}</h3>
                     <div className='task-list-enevelope'>
-                        <p className="task-description">Desc: {task.description}</p>
+                        <p className="task-description">Note: {task.description}</p>
                         <p className="task-date">Due Date: {task.dueDate}</p>
                         <p className="task-time">Time: {task.dueTime}</p>
                         
                         <p className="task-sound">
-                            sound <FontAwesomeIcon icon={faVolumeUp} />:
+                                sound <FontAwesomeIcon icon={faVolumeUp} />: {selectedSoundTitle}
                             
                             </p>
                             <p className="task-status">Status: {taskStatus}</p>
