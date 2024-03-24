@@ -48,7 +48,6 @@ const Home = () => {
   };
 
   return (
-    <div className="container">
       <div className="main-content">
         <div className="task-form-container">
           <TaskForm onSave={handleAddEditTask} initialData={editingTask} />
@@ -66,7 +65,6 @@ const Home = () => {
           </TaskList>
         </div>
       </div>
-    </div>
   );
 };
 
